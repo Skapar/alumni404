@@ -11,7 +11,9 @@ import json
 con = sqlite3.connect('users.db', check_same_thread=False)
 cursor = con.cursor()
 
+print(1)
 bot = telebot.TeleBot(config['token'])
+print(2)
 message_for_change = ""
 
 with open("studi.json") as json_file:
@@ -185,15 +187,37 @@ def send_info_1(message):
     item_material = types.InlineKeyboardButton('Учебный материал' , callback_data= 'material')
     item_rooms = types.InlineKeyboardButton('Найти кабинет' , callback_data= 'rooms')
     item_was_first = types.InlineKeyboardButton('Задать вопрос старшаку' , callback_data= 'first')
+    item_was_first2 = types.InlineKeyboardButton('Контакты' , callback_data= 'connn')
     item_kbtu = types.InlineKeyboardButton('Мемы кбту' , callback_data= 'kbtu__keyboard__item')
 
     markup_inline.add(item_gaid)
     markup_inline.add(item_material)
     markup_inline.add(item_rooms)
     markup_inline.add(item_was_first)
+    markup_inline.add(item_was_first2)
     markup_inline.add(item_kbtu)
 
     bot.send_message(message.chat.id, "Выберите что вам нужно:", reply_markup=markup_inline)
+
+lisss1 = json.load(open("./cont.json" , 'r')) 
+def make_btnss(lisss1):
+        markup_inline = types.InlineKeyboardMarkup(row_width=3)
+        i = 0
+        k = 0
+        mini_lis = []
+        for key , value in lisss1.items():
+            btn = types.InlineKeyboardButton(value[0] , callback_data=key)
+            # markup_inline.add(btn)
+            i+=1
+            k+=1
+            mini_lis.append(btn)
+            if i == 3 or len(lisss1) == k-2:
+                markup_inline.row(*mini_lis)
+                i = 0
+                mini_lis = []
+        return markup_inline
+ll = make_btnss(lisss1)  
+
 
 @bot.callback_query_handler(func = lambda call: True)
 def answer(call):
@@ -209,7 +233,7 @@ def answer(call):
         bot.send_document(call.message.chat.id, file, reply_markup=markup_reply_back, caption="\n\ninst\n@404alumni")
 
 
-
+    
 
 
 
@@ -260,14 +284,46 @@ def answer(call):
     if call.data == "kbtu__keyboard__item":
         link1 = '<a href = "https://instagram.com/kbtu.hub?igshid=YmMyMTA2M2Y=">kbtu.hub</a>'
         link2 = '<a href = "https://instagram.com/office_of_the_registrar?igshid=YmMyMTA2M2Y=">ОР | Офис Регистратора</a>'
+        link2 = '<a href = "https://instagram.com/office_of_the_registrar?igshid=YmMyMTA2M2Y=">ОР | Офис Регистратора</a>'
         bot.send_message(call.message.chat.id, f"<b>•</b> {link1}\n<b>•</b> {link2}\n\ninst\n@404alumni", parse_mode="html")
+        # bot.send_message(call.message.chat.id, f"<b>•</b> {link1}\n<b>•</b> {link2}\n\ninst\n@404alumni")
         send_info_1(call.message)
 
+    
+
+    if call.data == "connn":
+        bot.send_message(call.message.chat.id, "Выберите что вам нужно:", reply_markup=ll)
+    # {'FIT_c': "Текст почта бла бла бал", 'BS_c':  "Текст почта бла бла бал qwq w", 'MCM_c' :  "Текст почта бла бла бал" , 'NGD_c': "Текст почта бла бла бал" , 'GEO_c' :  "Текст почта бла бла бал"}
+    if call.data in lisss1:
+        txt = lisss1[call.data][1]
+        print(txt)
+        bot.send_message(call.message.chat.id, txt)
     if call.data == "first":
-        stud1 = choice(stud)
+        markup_inline = types.InlineKeyboardMarkup()
+        item_1 = types.InlineKeyboardButton('FIT' , callback_data= 'FIT')
+        item_2 = types.InlineKeyboardButton('BS' , callback_data= 'BS')
+        item_3 = types.InlineKeyboardButton('MCM' , callback_data= 'MCM')
+        item_4 = types.InlineKeyboardButton('NGD' , callback_data= 'NGD')
+        item_5 = types.InlineKeyboardButton('GEO' , callback_data= 'GEO')
+        # item_6 = types.InlineKeyboardButton('FIT' , callback_data= 'first')
 
-        bot.send_message(call.message.chat.id, f"Функция задать вопрос старашаку, отправляет случайного старшекурсника. Ему ты можешь задать вопрос который тебя интересует))\n\n<a href = {stud1[1]}>{stud1[0]}</a>\n\ninst\n@404alumni", parse_mode="html")
-        send_info_1(call.message)
+        markup_inline.add(item_1 , item_2 , item_3, item_4, item_5)
+
+        bot.send_message(call.message.chat.id, "Выберите что вам нужно:", reply_markup=markup_inline)
+
+        # stud1 = choice(stud)
+
+        # bot.send_message(call.message.chat.id, f"Функция задать вопрос старашаку, отправляет случайного старшекурсника. Ему ты можешь задать вопрос который тебя интересует))\n\n<a href = {stud1[1]}>{stud1[0]}</a>\n\ninst\n@404alumni", parse_mode="html")
+        # send_info_1(call.message)
+    lisss = ['FIT', 'BS', 'MCM', 'NGD', 'GEO']
+    if call.data in lisss:
+        print("Hi")
+        stud1 = choice(stud[call.data])
+        print(stud1[0])
+        print(stud1[1])
+        bot.send_message(call.message.chat.id, f"Функция задать вопрос старашаку, отправляет случайного старшекурсника. Ему ты можешь задать вопрос который тебя интересует))\n\n <a href={stud1[1]}> {stud1[0]} </a>\n\ninst\n@404alumni",parse_mode="html")
+
+
 
 
 def main():

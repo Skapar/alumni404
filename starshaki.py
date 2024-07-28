@@ -1,10 +1,19 @@
-stud = [
-    ['Бота', '"https://t.me/rsqlbkva"'],
-    ['Сабир','"t.me/sabirgl"'],
-    ['Батыр', '"https://t.me/batyrsultaan"'],
-    ['Нуржан', '"https://t.me/ttohem"'],
-    ['Еркебулан', '"https://t.me/yuckyballoon"'],
-    ['Аяна', '"https://t.me/oyannna"'],
-    ['Аман', '"https://t.me/amanchano"'],
-    ['Сула', '"https://t.me/kydyrmoldin"']
-]
+stud = {
+    "FIT" : [
+        ['Батыр', '"https://t.me/batyrsultaan22"'],
+        ['Батыр2', '"https://t.me/batyrsultaan22"'],
+        ['Батыр3', '"https://t.me/batyrsultaan23"']
+    ],
+    "BS" : [
+        ['Нуржан', '"https://t.me/ttohem"'],
+        ['Нуржан', '"https://t.me/ttohem"']
+        ],
+    "MCM" :[
+        ['Еркебулан', '"https://t.me/yuckyballoon"'],
+        ['Нуржан', '"https://t.me/ttohem"']
+    ],
+    "GEO" : [
+        ['Аяна', '"https://t.me/oyannna"'],
+        ['Нуржан', '"https://t.me/ttohem"']
+    ]
+}
