@@ -1,4 +1,4 @@
 config = {
-    'name' : 'boottest111_2222bot',
-    'token': '7316936661:AAFvIb8rVFVGt3E5MpYCHcgX5PMlQwNlx5o'
+    'name' : 'alumni404',
+    'token': '7420382067:AAEBq0yw0T7oVFmw8CrEn7VGwT4u1eWFRGU'
 }
