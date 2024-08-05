@@ -1,0 +1,1 @@
+worker: python alumni404bot.py
