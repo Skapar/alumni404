@@ -1,7 +1,10 @@
 from random import choice
 import sqlite3
-import telebot
+import pip
+from background import keep_alive
+pip.main(['install', 'pytelegrambotapi'])
 from cnfg import config
+import telebot
 from telebot import types
 from starshaki import stud
 from rassylka import text_dlya_rassylki
@@ -327,6 +330,7 @@ def answer(call):
 
 
 def main():
+    keep_alive()
     bot.infinity_polling()
 
 if __name__ == "__main__":
