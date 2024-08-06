@@ -45,11 +45,12 @@ def get_message(message):
 
     print(json.dumps(my_json, indent=4))
     global message_for_change
-    if my_json['id'][str(message.chat.id)] == True:
+    boolka = True
+    if boolka:
         try:
             msg = int(message.text)
             query=f"""SELECT * from Rooms WHERE Room like {msg}"""
-            query=f"""SELECT * from Rooms"""
+            # query=f"""SELECT * from Rooms"""
         except:
             bot.send_message(message.chat.id, "Отправьте номер кабинета")
             return
@@ -58,15 +59,16 @@ def get_message(message):
         cursor.execute(query)
         result = cursor.fetchall()
         print(result)
-        return
-        try:
-            arr = [str(i) for i in cursor.execute(query).fetchone()]
-            arr.pop()
-            arr[0] = "Улица: " + arr[0]
-            arr[1] = "Этаж: " + arr[1]
-            s = "Ваш кабинет\n"
-            s += "\n".join(arr)
-        except:
+        if result:
+                try:
+                    arr = [str(i) for i in result[0]]
+                    arr[0] = "Улица: " + arr[0]
+                    arr[1] = "Этаж: " + arr[1]
+                    s = "Ваш кабинет: " + arr[2] + "\n"
+                    s += "\n".join(arr)
+                except IndexError:
+                    s = "Ошибка при обработке данных кабинета"
+        else:
             s = "Такого кабинета нет🥺"
         bot.send_message(message.chat.id, s)
         send_info_1(message=message)
