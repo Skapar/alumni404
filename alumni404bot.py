@@ -329,9 +329,5 @@ def answer(call):
 
 
 
-def main():
-    keep_alive()
-    bot.infinity_polling()
-
-if __name__ == "__main__":
-    main()
+keep_alive()
+bot.polling(non_stop=True, interval=0)
